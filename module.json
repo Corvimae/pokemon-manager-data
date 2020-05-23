@@ -7,6 +7,7 @@
   "minimumCoreVersion": "0.6.0",
   "url": "https://github.com/corvimae/pokemon-manager-data",
   "manifest": "https://raw.githubusercontent.com/corvimae/pokemon-manager-data/master/module.json",
+  "download": "https://github.com/Corvimae/pokemon-manager-data/archive/1.0.0.zip",
   "esmodules": [
     "modules/import.js"
   ],
