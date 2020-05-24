@@ -5,7 +5,7 @@ Hooks.on('renderSidebarTab', async (app, html) => {
     let button = $("<button class='import-pmd'><i class='fas fa-file-import'></i> Sync Pokemon Manager data</button>");
 
     button.click(async () => {
-      ui.notifications.info('Starting Pokemon data sync...');
+      ui.notifications.info('Starting Pokemon data sync... Foundry may freeze for a bit!');
 
       await Promise.all([
         PokemonManagerImporter.bundleMoves(),
@@ -77,7 +77,7 @@ class PokemonManagerImporter {
     await updateOrCreateAllInFolder(folder, moveData.map(move => ({
       name: move.name,
       type: "move",
-      img: `modules/pokemon-manager-data/assets/types/${typeMap[move.type].toLowerCase()}`,
+      img: `modules/pokemon-manager-data/assets/types/${typeMap[move.type]}.png`,
       data: {
         ...move,
         type: typeMap[move.type],
