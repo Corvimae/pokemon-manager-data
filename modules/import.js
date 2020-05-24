@@ -77,6 +77,7 @@ class PokemonManagerImporter {
     await updateOrCreateAllInFolder(folder, moveData.map(move => ({
       name: move.name,
       type: "move",
+      img: `modules/pokemon-manager-data/assets/types/${move.name.toLowerCase()}`,
       data: {
         ...move,
         type: typeMap[move.type],
