@@ -5,6 +5,7 @@ export async function getOrCreateFolder(name, type) {
     parent: null,
   }));
 }
+
 export async function getOrCreateCompendium(name, label, entity) {
   return game.packs.find(p => p.collection.endsWith(name)) || (await Compendium.create({
     name,
@@ -13,7 +14,6 @@ export async function getOrCreateCompendium(name, label, entity) {
     package: 'pokemon-manager-data'
   }));
 }
-
 
 export async function updateOrCreateAllInFolder(folder, entityDataList, entityClass, debugDescription = 'compendium item', createOptions = {}, transformData) {
   for(let entityData of entityDataList) {
