@@ -16,7 +16,7 @@ export async function getOrCreateCompendium(name, label, entity) {
 }
 
 export async function updateOrCreateAllInFolder(folder, entityDataList, entityClass, debugDescription = 'compendium item', createOptions = {}, transformData) {
-  for(let entityData of entityDataList) {
+  const promises = entityDataList.map(async entityData => {
     const existingItem  = folder.content.find(item => item.data.flags.pta?.dbId === entityData.flags.pta?.dbId);
 
     let newEntity;
@@ -41,7 +41,9 @@ export async function updateOrCreateAllInFolder(folder, entityDataList, entityCl
     if(transformData) {
       await newEntity.update(transformData(newEntity.data));
     }
-  }
+  });
+
+  await Promise.all(promises);
 }
 
 export async function updateOrCreateAllInCompendium(compendium, entityDataList, entityClass, debugDescription = 'compendium item', createOptions = {}, transformData) {
