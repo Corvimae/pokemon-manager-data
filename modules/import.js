@@ -47,9 +47,11 @@ class PokemonManagerImporter {
       speciesData.map(species => ({
         name: species.name,
         type: 'pokemon',
-        img: `modules/pokemon-manager-data/sprites/${PokemonManagerImporter.normalizePokemonName(species.name, species.id)}.png`,
+        img: `modules/pokemon-manager-data/assets/sprites/${PokemonManagerImporter.normalizePokemonName(species.name, species.id)}.png`,
         flags: {
-          pokemonDBId: species.id,
+          pta: {
+            dbId: species.id,
+          },
         },
       })),
       Actor,
@@ -58,7 +60,7 @@ class PokemonManagerImporter {
       data => ({
         token: { 
           ...duplicate(data.token),
-          img: `modules/pokemon-manager-data/sprites/webm/${PokemonManagerImporter.normalizePokemonName(data.name, data.flags.pokemonDBId)}.webm`
+          img: `modules/pokemon-manager-data/assets/sprites/webm/${PokemonManagerImporter.normalizePokemonName(data.name, data.flags.pta?.dbId)}.webm`
         }
       }),
     );
@@ -80,7 +82,9 @@ class PokemonManagerImporter {
         type: typeMap[move.type],
       },
       flags: {
-        pokemonDBId: move.id,
+        pta: {
+          dbId: move.id,
+        },
       },
     })), Item, 'move');
    

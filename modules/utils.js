@@ -17,17 +17,17 @@ export async function getOrCreateCompendium(name, label, entity) {
 
 export async function updateOrCreateAllInFolder(folder, entityDataList, entityClass, debugDescription = 'compendium item', createOptions = {}, transformData) {
   for(let entityData of entityDataList) {
-    const existingItem  = folder.content.find(item => item.data.flags.pokemonDBId === entityData.flags.pokemonDBId);
+    const existingItem  = folder.content.find(item => item.data.flags.pta?.dbId === entityData.flags.pta?.dbId);
 
     let newEntity;
 
     if (existingItem) {
-      console.info(`Updating ${debugDescription} ${entityData.name} (ID: ${existingItem._id})`)
+      console.info(`[PTA] Updating ${debugDescription} ${entityData.name} (ID: ${existingItem._id})`)
       newEntity = existingItem;
 
       await newEntity.update(entityData);
     } else {
-      console.info(`Creating new ${debugDescription} for ${entityData.name}`);
+      console.info(`[PTA] Creating new ${debugDescription} for ${entityData.name}`);
 
       newEntity = await entityClass.create(
         {
@@ -53,12 +53,12 @@ export async function updateOrCreateAllInCompendium(compendium, entityDataList, 
     let newEntity;
 
     if (existingItem) {
-      console.info(`Updating ${debugDescription} ${entityData.name} (ID: ${existingItem._id})`)
+      console.info(`[PTA] Updating ${debugDescription} ${entityData.name} (ID: ${existingItem._id})`)
       newEntity = await compendium.getEntity(existingItem._id);
 
       await newEntity.update(entityData);
     } else {
-      console.info(`Creating new ${debugDescription} for ${entityData.name}`);
+      console.info(`[PTA] Creating new ${debugDescription} for ${entityData.name}`);
 
       newEntity = await entityClass.create(entityData, createOptions);
     
