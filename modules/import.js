@@ -17,7 +17,7 @@ Hooks.on('renderSidebarTab', async (app, html) => {
   }
 });
 
-const BASE_PATH = 'https://pokemon.maybreak.com/api/v2';
+const BASE_PATH = 'https://pokemon.maybreak.com/api/v1';
 
 class PokemonManagerImporter {
   static async fetch(path) {
@@ -38,7 +38,7 @@ class PokemonManagerImporter {
   }
 
   static async bundleSpecies() {
-    const speciesData = await PokemonManagerImporter.fetch('species/all');
+    const speciesData = await PokemonManagerImporter.fetch('reference/species');
 
     const folder = await getOrCreateFolder('Pokemon Species', 'Actor');
 
@@ -50,6 +50,9 @@ class PokemonManagerImporter {
         img: `modules/pokemon-manager-data/assets/sprites/${PokemonManagerImporter.normalizePokemonName(species.name, species.id)}.png`,
         flags: {
           pta: {
+            dbId: species.id,
+          },
+          ptu: {
             dbId: species.id,
           },
         },
@@ -69,32 +72,28 @@ class PokemonManagerImporter {
   }
 
   static async bundleMoves() {
-    const typeMap = await PokemonManagerImporter.fetchTypesById();
-    const moveData = await PokemonManagerImporter.fetch('moves/all');
+    const moveData = await PokemonManagerImporter.fetch('reference/moves');
     
     const folder = await getOrCreateFolder('Pokemon Moves', 'Item');
 
     await updateOrCreateAllInFolder(folder, moveData.map(move => ({
       name: move.name,
       type: "move",
-      img: `modules/pokemon-manager-data/assets/types/${typeMap[move.type]}.png`,
+      img: `modules/pokemon-manager-data/assets/types/${move.type}.png`,
       data: {
         ...move,
-        type: typeMap[move.type],
+        type: move.type,
       },
       flags: {
         pta: {
+          dbId: move.id,
+        },
+        ptu: {
           dbId: move.id,
         },
       },
     })), Item, 'move');
    
     ui.notifications.info('Pokemon move sync complete!')
-  }
-
-  static async fetchTypesById() {
-    const typesData = await PokemonManagerImporter.fetch('types');
-
-    return typesData.reduce((acc, value) => ({ ...acc, [value.id]: value.name }), {});
   }
 }
