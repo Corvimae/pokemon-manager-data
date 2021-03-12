@@ -1,14 +1,14 @@
 {
   "name": "pokemon-manager-data",
-  "title": "Pokemon Manager v2 Data Interop Layer",
-  "description": "Imports data from Pokemon Manager v2",
+  "title": "Pokemon Manager v3 Data Interop Layer",
+  "description": "Imports data from Pokemon Manager v3",
   "author": "Corvimae",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "minimumCoreVersion": "0.6.0",
   "compatibleCoreVersion": "0.6.0",
   "url": "https://github.com/corvimae/pokemon-manager-data",
   "manifest": "https://raw.githubusercontent.com/corvimae/pokemon-manager-data/master/module.json",
-  "download": "https://github.com/Corvimae/pokemon-manager-data/archive/1.0.3.zip",
+  "download": "https://github.com/Corvimae/pokemon-manager-data/archive/1.0.4.zip",
   "esmodules": [
     "modules/import.js"
   ],
